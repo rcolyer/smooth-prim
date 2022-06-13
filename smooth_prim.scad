@@ -212,7 +212,8 @@ module SmoothHollowCube(size, wall_width, inner_curv=0) {
 
   size = is_num(size) ? [size, size, size] : size;
 
-  wall_width = wall_width < min(size)/2 ? wall_width : min(size)/2;
+  min_ww_size = min(size[0]/2, size[1]/2, size[2]);
+  wall_width = wall_width < min_ww_size ? wall_width : min_ww_size;
   max_inner_curv = (min(size[0], size[1])-2*wall_width)/2;
   inner_curv = inner_curv < max_inner_curv ? inner_curv : max_inner_curv;
 
