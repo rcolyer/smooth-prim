@@ -40,6 +40,40 @@ module SmoothCylinder(radius, height, smooth_rad) {
   }
 }
 
+module SmoothCylinder(radius, height, smooth_rad, rotate_fn, edge_fn) {
+  // An alternate function for when you need fine control over the surface curves. For example, small cylinders.
+  if (radius > smooth_rad) {
+    rotate_extrude(convexity=10, $fn=rotate_fn)
+      hull() {
+        square([radius-smooth_rad, height]);
+        intersection() {
+          translate([0, -0.1*height])
+            square([1.1*radius, 1.2*height]);
+          union() {
+            translate([radius-smooth_rad, smooth_rad])
+              circle(r=smooth_rad, $fn=edge_fn);
+            translate([radius-smooth_rad, height-smooth_rad])
+              circle(r=smooth_rad, $fn=edge_fn);
+          }
+        }
+      }
+  }
+  else {
+    rotate_extrude(convexity=10, $fn=rotate_fn)
+      hull() {
+        intersection() {
+          translate([0, -0.1*height])
+            square([1.1*radius, 1.2*height]);
+          union() {
+            translate([0, radius])
+              circle(r=radius, $fn=edge_fn);
+            translate([0, height-radius])
+              circle(r=radius, $fn=edge_fn);
+          }
+        }
+      }
+  }
+}
 
 module HollowCylinder(outer_rad, inner_rad, height) {
   $fa = ($fa >= 12) ? 1 : $fa;

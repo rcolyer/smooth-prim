@@ -6,7 +6,7 @@ This library is a collection of some smooth primitives, i.e. having specified
 rounded edges, for use in other designs.  It's not a comprehensive collection,
 but a useful set.
 
-* SmoothCylinder
+* SmoothCylinder (two methods)
 * HollowCylinder
 * SmoothHole
 * ChamferHole
